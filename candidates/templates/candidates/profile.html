@@ -1,0 +1,128 @@
+{% extends 'candidates/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- One -->
+<section id="One" class="wrapper style3" style="background-image:url({% static 'images/bg.jpg' %})">
+    <div class="inner">
+        <header class="align-center">
+            <p>Displays all details for a candidate</p>
+            <h2>Candidates</h2>
+        </header>
+    </div>
+</section>
+
+<!-- Main -->
+<div id="main" class="container">
+    <div class="row uniform">
+        <div class="3u 12u$(small)">
+            <ul style="list-style: none">
+                <li ><a href="#" class="button special fit">Profile</a></li>
+                <li><a href="#" class="button special fit">Comments</a></li>
+                <li><a href="#" class="button special fit">Screeming</a></li>
+                <li><a href="#" class="button special fit">Interview</a></li>
+                <li><a href="#" class="button special fit">Management</a></li>
+            </ul>
+        </div>
+        <div class="9u 12u$(small)">
+            <div class="row uniform">
+                <div class="4u 12u$(small)">
+                    <header>
+                        <h3>
+                        {{candidate.first_name}}
+                        {{candidate.second_name |default_if_none:''}}
+                        {{candidate.last_name}}
+                        {{candidate.second_last_name |default_if_none:''}}
+                        
+                        </h3>
+                        <p>{{ candidate.status }}</p>
+                    </header>
+                </div>
+                <div class="4u 12u$(small)">
+                    <a href="#" class="button special fit">Assgn Interview</a>
+                </div>
+                <div class="4u 12u$(small)">
+
+                    {% if candidate.status == 'HIRED' %}
+                        <p></p>
+                    {% elif candidate.status == 'NOT AVAILABLE'%}
+                        <a href="#" class="button special fit">Return to process</a>
+                    {% else %}
+                        <a href="#" class="button special fit">Not available</a>
+                    {% endif %}    
+
+                </div>
+            </div>
+        </div>
+            <div class="9u 12u$(small)">
+                <div class="row uniform">            
+                    <div class="4u 12u$(small)">
+                        <label>Email</label>  
+                        <p>{{ candidate.email }}</p>
+                    </div>
+                    <div class="4u 12u$(small)">
+                        <label>Phone</label> 
+                        <p>{{ candidate.phone }}</p>
+                    </div>
+                    <div class="4u 12u$(small)">
+                        <label>Date of birthdate</label> 
+                        <p>{{ candidate.birthdate }}</p>
+                    </div>
+                </div>
+            </div>   
+            <div class="9u 12u$(small)">
+                <div class="row uniform">
+                    <div class="4u 12u$(small)">
+                        <label>Source<label>
+                        <p style="color: blue">A unknown source</p>
+                    </div>
+                    <div class="4u 12u$(small)">
+                        <label>Recruiter</label>
+                        <p>{{ candidate.recruiter }}</p>
+                    </div>
+                    <div class="4u 12u$(small)">
+                        <label>Created date</label>
+                        <p>{{ candidate.created_date }}</p>
+                    </div>
+                    <div class="4u 12u$(small)">
+                        <a href="#" class="button special fit">Edit</a>
+                    </div>
+                </div>
+            </div>
+            <div  class="9u 12u$(small)" >
+                <div class="row uniform">
+                    <div class="12u 12u$(small)">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Recruiter</th>
+                                    <th>Description</th>
+                                    <th>Created date</th>
+                                </tr>
+                            </thead>                           
+                            <tbpdy>
+                                {% for comment in comments %}
+                                <tr>
+                                    <td>{{ comment.status }}</td>
+                                    <td>{{ comment.recruiter}}</td>
+                                    <td>{{ comment.description }}</td>
+                                    <td>{{ comment.status }}</td>
+                                        
+                                    
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbdody>
+                        </table>
+                    </div>
+                </div>
+            </div> 
+    </div>
+</div>
+
+
+
+
+{% endblock %}

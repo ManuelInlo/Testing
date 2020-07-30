@@ -1,0 +1,82 @@
+{% extends 'candidates/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- One -->
+<section id="One" class="wrapper style3" style="background-image:url({% static 'images/bg.jpg' %})">
+    <div class="inner">
+        <header class="align-center">
+            <p>Upload and search candidates</p>
+            <h2>Candidates</h2>
+        </header>
+    </div>
+</section>
+
+<!-- Main -->
+<div id="main" class="container">
+
+    <!-- Elements -->
+        <h2 id="elements">Elements</h2>
+         <form method="post" action="{% url 'candidates' %}">
+          {% csrf_token %}
+            <div class="row uniform">
+                <div class="9u 12u$(small)">
+                    <input type="text" name="query" id="query" value="" placeholder="Busca un candidato" />
+                </div>
+                <div class="3u$ 12u$(small)">
+                    <input type="submit" value="Search" class="fit" />
+                </div>
+            </div>
+        </form>
+    <!--Candidates table-->>
+                    <a href="{% url 'candidate_add' %}" style="margin-bottom: 10px;" class="button special">Add candidate</a>           
+                    <div class="table-wrapper">
+                        <table class="alt">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Fecha de Nacimiento</th>
+                                    <th>Email</th>
+                                    <th>Telefono</th>
+                                    <th>Source</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for candidate in candidate_list %}
+                                    <tr>
+                                    <td>{{candidate.pk}}</td>
+                                    <td>{{candidate.first_name}}</td>
+                                    <td>{{candidate.birthdate}}</td>
+                                    <td>{{candidate.email}}</td>
+                                    <td>{{candidate.phone}}</td>
+                                    <td>{{candidate.source }}</td>
+                                    <td>
+                                        <a style="font-size: 1.5em; margin-right: 20px" class="fa fa-user"href="{% url 'candidate_profile' candidate.pk %}"></a>
+                                        <a style="font-size: 1.5em; margin-right: 20px" class="fa fa-pencil" href={% url 'candidate_edit' candidate.pk %}></a>
+                                        <a style="font-size: 1.5em; margin-right: 20px" class="fa fa-trash"></a>
+                                    
+                                    <td>
+                                    </td>
+                                </tr>   
+                                {% endfor %}
+
+                                                        
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6"></td>
+                                    <td>Numero de candidatos : {{candidate_list.count}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                   
+
+       
+</div>
+
+{% endblock %}
